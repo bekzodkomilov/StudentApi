@@ -3,10 +3,10 @@ using StudentApi.Entities;
 
 namespace StudentApi.Data;
 
-public class StudnetDbContext : DbContext
+public class StudentDbContext : DbContext
 {
     public DbSet<Student> Students { get; set; }
 
-    public StudnetDbContext(DbContextOptions<StudnetDbContext> options) 
+    public StudentDbContext(DbContextOptions<StudentDbContext> options) 
         : base(options) { }
 }
