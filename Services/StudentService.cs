@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using StudentApi.Data;
 using StudentApi.Entities;
 
@@ -23,9 +24,9 @@ public class StudentService : IStudentService<Student>
         throw new NotImplementedException();
     }
 
-    public Task<Student> GetByIdAsync(Guid id)
+    public async Task<Student> GetByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        return await _context.Students.FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<(bool IsSuccess, Exception e, Student entity)> InsertAsync(Student entity)
