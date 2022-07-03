@@ -19,10 +19,8 @@ public class StudentService : IStudentService<Student>
         throw new NotImplementedException();
     }
 
-    public Task<List<Student>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public  Task<List<Student>> GetAllAsync()
+      => Task.FromResult(_context.Students.ToList());
 
     public async Task<Student> GetByIdAsync(Guid id)
     {
@@ -44,7 +42,7 @@ public class StudentService : IStudentService<Student>
         }
     }
 
-    public Task<(bool IsSuccess, Exception e)> UpdateAsync(Student entity)
+    public Task<bool> UpdateAsync(Guid id)
     {
         throw new NotImplementedException();
     }
