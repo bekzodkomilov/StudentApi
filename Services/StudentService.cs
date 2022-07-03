@@ -43,7 +43,5 @@ public class StudentService : IStudentService<Student>
     }
 
     public Task<bool> UpdateAsync(Guid id)
-    {
-        throw new NotImplementedException();
-    }
+        => Task.FromResult(_context.Students.Any(a => a.Id == id));
 }

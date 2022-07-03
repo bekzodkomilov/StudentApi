@@ -37,4 +37,11 @@ public class StudentController : ControllerBase
         var res = await _service.GetByIdAsync(id);
         return Ok(res);
     }
+    [HttpGet("getallstudent")]
+    public async Task<IActionResult> GetAllStudent()
+    {
+        var res = await _service.GetAllAsync();
+        return Ok(res);
+    }
+
 }
