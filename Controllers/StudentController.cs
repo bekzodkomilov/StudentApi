@@ -43,5 +43,11 @@ public class StudentController : ControllerBase
         var res = await _service.GetAllAsync();
         return Ok(res);
     }
+    [HttpPut("updatestudentbyid/{id}")]
+    public async Task<IActionResult> UpdateStudentById(Guid id)
+    {
+        var res = await _service.GetByIdAsync(id);
+        return Ok(res);
+    }
 
 }
