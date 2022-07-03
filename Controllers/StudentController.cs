@@ -59,6 +59,10 @@ public class StudentController : ControllerBase
     public async Task<IActionResult> DeleteStudentById(Guid id)
     {
         var res = await _service.DeleteAsync(id);
-        return Ok(res);
+        if(!res.IsSuccess)
+        {
+            return BadRequest(res.e);
+        }
+        return Ok(res.IsSuccess);
     }
 }

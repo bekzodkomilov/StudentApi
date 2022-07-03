@@ -2,7 +2,6 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using StudentApi.Data;
 using StudentApi.Entities;
-using StudentApi.Models;
 
 namespace StudentApi.Services;
 
@@ -54,17 +53,17 @@ public class StudentService : IStudentService<Student>
         }
     }
 
-     public async Task<(bool IsSuccess, Exception e)> UpdateAsync(Student model)
+     public async Task<(bool IsSuccess, Exception e)> UpdateAsync(Student entity)
     {
         try
         {
-            _context.Students.Update(model);
+            _context.Students.Update(entity);
             await _context.SaveChangesAsync();
             return (true, null);
         }
         catch (Exception e)
         {
-            _logger.LogError($"Car was not updated.\n{e.Message}");
+            _logger.LogError($"Student was not updated.\n{e.Message}");
             return (false, e);
         }
     }
