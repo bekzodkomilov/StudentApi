@@ -63,6 +63,6 @@ public class StudentController : ControllerBase
         {
             return BadRequest(res.e);
         }
-        return Ok(res.IsSuccess);
+        return Ok($"You deleted student{res.IsSuccess}");
     }
 }
