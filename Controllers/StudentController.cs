@@ -44,10 +44,16 @@ public class StudentController : ControllerBase
         return Ok(res);
     }
     [HttpPut("updatestudentbyid/{id}")]
-    public async Task<IActionResult> UpdateStudentById(Guid id)
+    public async Task<IActionResult> UpdateStudentById([FromForm]StudentModel model, Guid id)
     {
         var res = await _service.GetByIdAsync(id);
-        return Ok(res);
+        res.LastName = model.LastName;
+        res.Name = model.Name;
+        res.Age = model.Age;
+        var result = await _service.UpdateAsync(res);
+        var error = !result.IsSuccess;
+        var message = result.e is null ? "Success"  : result.e.Message;
+        return Ok(new {error,message});
     }
     [HttpDelete("deletestudentbyid")]
     public async Task<IActionResult> DeleteStudentById(Guid id)

@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using StudentApi.Data;
 using StudentApi.Entities;
+using StudentApi.Models;
 
 namespace StudentApi.Services;
 
@@ -20,17 +21,13 @@ public class StudentService : IStudentService<Student>
         try
         {
             var student = await GetByIdAsync(id);
-            if(student == default(Student))
-            {
-                return (false, new Exception("Not found"));
-            }
-
             _context.Students.Remove(student);
-            return (true,null);
+            await _context.SaveChangesAsync();
+            return (true, null);
         }
         catch (Exception e)
         {
-            return (false,e);
+            return (false, e);
         }
     }
 
@@ -57,6 +54,18 @@ public class StudentService : IStudentService<Student>
         }
     }
 
-    public Task<bool> UpdateAsync(Guid id)
-        => Task.FromResult(_context.Students.Any(a => a.Id == id));
+     public async Task<(bool IsSuccess, Exception e)> UpdateAsync(Student model)
+    {
+        try
+        {
+            _context.Students.Update(model);
+            await _context.SaveChangesAsync();
+            return (true, null);
+        }
+        catch (Exception e)
+        {
+            _logger.LogError($"Car was not updated.\n{e.Message}");
+            return (false, e);
+        }
+    }
 }
