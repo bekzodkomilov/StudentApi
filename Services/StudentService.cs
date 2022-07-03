@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using StudentApi.Data;
 using StudentApi.Entities;
@@ -14,9 +15,23 @@ public class StudentService : IStudentService<Student>
         _logger = logger;
         _context = context;
     }
-    public Task<(bool IsSuccess, Exception e)> DeleteAsync(Guid id)
+    public async Task<(bool IsSuccess, Exception e)> DeleteAsync(Guid id)
     {
-        throw new NotImplementedException();
+        try
+        {
+            var student = await GetByIdAsync(id);
+            if(student == default(Student))
+            {
+                return (false, new Exception("Not found"));
+            }
+
+            _context.Students.Remove(student);
+            return (true,null);
+        }
+        catch (Exception e)
+        {
+            return (false,e);
+        }
     }
 
     public  Task<List<Student>> GetAllAsync()

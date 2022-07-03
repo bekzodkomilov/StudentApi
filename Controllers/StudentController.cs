@@ -49,5 +49,10 @@ public class StudentController : ControllerBase
         var res = await _service.GetByIdAsync(id);
         return Ok(res);
     }
-
+    [HttpDelete("deletestudentbyid")]
+    public async Task<IActionResult> DeleteStudentById(Guid id)
+    {
+        var res = await _service.DeleteAsync(id);
+        return Ok(res);
+    }
 }
