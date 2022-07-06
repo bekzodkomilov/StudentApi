@@ -5,6 +5,8 @@ using StudentApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// builder.Services.AddDbContext<StudentDbContext>(options =>
+//     options.UseSqlite(builder.Configuration.GetConnectionString("DbConnection")));
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
